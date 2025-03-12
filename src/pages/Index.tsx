@@ -3,9 +3,6 @@ import { useEffect, useState } from 'react';
 import Nav from '@/components/Nav';
 import StoryGenerator from '@/components/StoryGenerator';
 import { BookOpen, Sparkles, Lightbulb } from 'lucide-react';
-import { AnimatedText } from '@/components/ui/animated-text';
-import { AuroraBackground } from '@/components/ui/aurora-background';
-import { GlowEffect } from '@/components/ui/glow-effect';
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -17,69 +14,21 @@ const Index = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen flex flex-col relative">
-      {/* Aurora Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <AuroraBackground 
-          blurColor="rgba(88, 95, 253, 0.4)"
-          blurSize={180}
-          intensity={0.7}
-          backgroundColor="hsl(var(--background))"
-          highlightColor="rgba(235, 200, 255, 0.8)"
-          particleCount={250}
-        />
-      </div>
-      
+    <div className="min-h-screen flex flex-col">
       <Nav />
       
-      <main className="flex-1 pt-24 pb-16 relative">
+      <main className="flex-1 pt-24 pb-16">
         <section className="py-12 md:py-20">
           <div className="container px-4 md:px-6">
-            <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <GlowEffect position="center" size="md" color="hsla(210, 100%, 50%, 0.3)" intensity="medium">
-                <div className="inline-block p-2 bg-primary/10 rounded-full mb-4">
-                  <Sparkles className="w-6 h-6 text-primary" />
-                </div>
-              </GlowEffect>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground font-display">
-                <AnimatedText 
-                  text="Create beautiful stories" 
-                  reveal={{ 
-                    type: "words",
-                    stagger: 0.1,
-                    delay: 0.2,
-                    duration: 0.8,
-                    startOn: "mount",
-                    noRepeat: true
-                  }}
-                  className="block text-glow-sm"
-                />
-                <AnimatedText 
-                  text="with AI" 
-                  reveal={{ 
-                    type: "characters",
-                    stagger: 0.05,
-                    delay: 1.0,
-                    duration: 0.5,
-                    startOn: "mount",
-                    noRepeat: true
-                  }}
-                  className="text-primary text-glow"
-                />
+            <div className="text-center space-y-4 max-w-3xl mx-auto animate-fade-in">
+              <div className="inline-block p-2 bg-primary/10 rounded-full mb-4">
+                <Sparkles className="w-6 h-6 text-primary" />
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+                Create beautiful stories with AI
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-sans">
-                <AnimatedText 
-                  text="Transform your ideas into captivating narratives with our AI-powered story generator."
-                  reveal={{ 
-                    type: "words",
-                    stagger: 0.03,
-                    delay: 1.5,
-                    duration: 0.6,
-                    startOn: "mount",
-                    noRepeat: true
-                  }}
-                />
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Transform your ideas into captivating narratives with our AI-powered story generator.
               </p>
             </div>
 
@@ -89,7 +38,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-secondary/50 relative">
+        <section className="py-16 bg-secondary/50">
           <div className="container px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Feature 
@@ -112,7 +61,7 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="py-8 border-t border-border relative">
+      <footer className="py-8 border-t border-border">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
@@ -136,36 +85,13 @@ interface FeatureProps {
 }
 
 const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => (
-  <GlowEffect position="center" color="hsla(210, 100%, 65%, 0.1)" size="sm" intensity="low">
-    <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-background/70 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-neo glow-container">
-      <div className="p-3 bg-primary/10 rounded-full mb-4">
-        {icon}
-      </div>
-      <h3 className="text-xl font-semibold mb-2 font-display">
-        <AnimatedText 
-          text={title}
-          reveal={{ 
-            type: "characters",
-            stagger: 0.03,
-            startOn: "scroll",
-            noRepeat: true
-          }}
-        />
-      </h3>
-      <p className="text-muted-foreground font-sans">
-        <AnimatedText 
-          text={description}
-          reveal={{ 
-            type: "words",
-            stagger: 0.02,
-            delay: 0.2,
-            startOn: "scroll",
-            noRepeat: true
-          }}
-        />
-      </p>
+  <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-background/50 border border-border/50 transition-all duration-300 hover:shadow-neo">
+    <div className="p-3 bg-primary/10 rounded-full mb-4">
+      {icon}
     </div>
-  </GlowEffect>
+    <h3 className="text-xl font-semibold mb-2">{title}</h3>
+    <p className="text-muted-foreground">{description}</p>
+  </div>
 );
 
 export default Index;
