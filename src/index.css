@@ -1,4 +1,6 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,6 +100,14 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .glow-effect {
+    @apply relative overflow-hidden;
+  }
+
+  .glow-container {
+    @apply relative z-10;
+  }
 }
 
 /* Animations */
@@ -156,4 +166,13 @@ html {
   background: linear-gradient(-45deg, #e6f2ff, #f0f7ff, #e0eeff, #f5f8ff);
   background-size: 400% 400%;
   animation: gradient-shift 5s ease infinite;
+}
+
+/* Glow effects */
+.text-glow {
+  text-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+}
+
+.text-glow-sm {
+  text-shadow: 0 0 8px rgba(66, 153, 225, 0.4);
 }

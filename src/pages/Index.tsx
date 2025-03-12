@@ -5,6 +5,7 @@ import StoryGenerator from '@/components/StoryGenerator';
 import { BookOpen, Sparkles, Lightbulb } from 'lucide-react';
 import { AnimatedText } from '@/components/ui/animated-text';
 import { AuroraBackground } from '@/components/ui/aurora-background';
+import { GlowEffect } from '@/components/ui/glow-effect';
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -35,10 +36,13 @@ const Index = () => {
         <section className="py-12 md:py-20">
           <div className="container px-4 md:px-6">
             <div className="text-center space-y-4 max-w-3xl mx-auto">
-              <div className="inline-block p-2 bg-primary/10 rounded-full mb-4">
-                <Sparkles className="w-6 h-6 text-primary" />
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
+              <GlowEffect position="center" size="md" color="hsla(210, 100%, 50%, 0.3)" intensity="medium">
+                <div className="inline-block p-2 bg-primary/10 rounded-full mb-4">
+                  <Sparkles className="w-6 h-6 text-primary" />
+                </div>
+              </GlowEffect>
+              
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground font-display">
                 <AnimatedText 
                   text="Create beautiful stories" 
                   reveal={{ 
@@ -49,7 +53,7 @@ const Index = () => {
                     startOn: "mount",
                     noRepeat: true
                   }}
-                  className="block"
+                  className="block text-glow-sm"
                 />
                 <AnimatedText 
                   text="with AI" 
@@ -61,10 +65,10 @@ const Index = () => {
                     startOn: "mount",
                     noRepeat: true
                   }}
-                  className="text-primary"
+                  className="text-primary text-glow"
                 />
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-sans">
                 <AnimatedText 
                   text="Transform your ideas into captivating narratives with our AI-powered story generator."
                   reveal={{ 
@@ -132,34 +136,36 @@ interface FeatureProps {
 }
 
 const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => (
-  <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-background/70 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-neo">
-    <div className="p-3 bg-primary/10 rounded-full mb-4">
-      {icon}
+  <GlowEffect position="center" color="hsla(210, 100%, 65%, 0.1)" size="sm" intensity="low">
+    <div className="flex flex-col items-center text-center p-6 rounded-2xl bg-background/70 backdrop-blur-sm border border-border/50 transition-all duration-300 hover:shadow-neo glow-container">
+      <div className="p-3 bg-primary/10 rounded-full mb-4">
+        {icon}
+      </div>
+      <h3 className="text-xl font-semibold mb-2 font-display">
+        <AnimatedText 
+          text={title}
+          reveal={{ 
+            type: "characters",
+            stagger: 0.03,
+            startOn: "scroll",
+            noRepeat: true
+          }}
+        />
+      </h3>
+      <p className="text-muted-foreground font-sans">
+        <AnimatedText 
+          text={description}
+          reveal={{ 
+            type: "words",
+            stagger: 0.02,
+            delay: 0.2,
+            startOn: "scroll",
+            noRepeat: true
+          }}
+        />
+      </p>
     </div>
-    <h3 className="text-xl font-semibold mb-2">
-      <AnimatedText 
-        text={title}
-        reveal={{ 
-          type: "characters",
-          stagger: 0.03,
-          startOn: "scroll",
-          noRepeat: true
-        }}
-      />
-    </h3>
-    <p className="text-muted-foreground">
-      <AnimatedText 
-        text={description}
-        reveal={{ 
-          type: "words",
-          stagger: 0.02,
-          delay: 0.2,
-          startOn: "scroll",
-          noRepeat: true
-        }}
-      />
-    </p>
-  </div>
+  </GlowEffect>
 );
 
 export default Index;

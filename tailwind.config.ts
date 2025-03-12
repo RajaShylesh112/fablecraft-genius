@@ -60,6 +60,12 @@ export default {
           light: 'hsla(var(--glass-light))',
           dark: 'hsla(var(--glass-dark))',
         },
+        // Glow effect colors
+        glow: {
+          primary: 'hsl(var(--primary))',
+          accent: 'hsl(var(--accent))',
+          highlight: 'hsl(210, 100%, 70%)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -67,8 +73,9 @@ export default {
         sm: 'calc(var(--radius) - 4px)'
       },
       fontFamily: {
-        sans: ['SF Pro Display', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
         serif: ['SF Pro Serif', 'Georgia', 'serif'],
+        display: ['Playfair Display', 'serif'],
       },
       keyframes: {
         'accordion-down': {
@@ -111,6 +118,10 @@ export default {
           from: { filter: 'blur(8px)', opacity: '0' },
           to: { filter: 'blur(0)', opacity: '1' },
         },
+        'glow-pulse': {
+          '0%, 100%': { opacity: '0.6' },
+          '50%': { opacity: '1' },
+        },
         ...textAnimationKeyframes,
       },
       animation: {
@@ -124,12 +135,15 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'scale-in': 'scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
         'blur-in': 'blur-in 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+        'glow-pulse': 'glow-pulse 4s ease-in-out infinite',
         ...textAnimations,
       },
       boxShadow: {
         'neo': '5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(255, 255, 255, 0.95)',
         'neo-inset': 'inset 2px 2px 5px rgba(0, 0, 0, 0.05), inset -2px -2px 5px rgba(255, 255, 255, 0.95)',
         'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
+        'glow': '0 0 20px 5px rgba(66, 153, 225, 0.48)',
+        'glow-sm': '0 0 10px 2px rgba(66, 153, 225, 0.48)',
       },
       backdropBlur: {
         'xs': '2px',
