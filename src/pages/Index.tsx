@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Nav from '@/components/Nav';
 import StoryGenerator from '@/components/StoryGenerator';
 import { BookOpen, Sparkles, Lightbulb } from 'lucide-react';
+import { AuroraBackground } from '@/components/ui/aurora-background';
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -14,7 +15,7 @@ const Index = () => {
   if (!mounted) return null;
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <AuroraBackground className="min-h-screen flex flex-col">
       <Nav />
       
       <main className="flex-1 pt-24 pb-16">
@@ -38,7 +39,7 @@ const Index = () => {
           </div>
         </section>
 
-        <section className="py-16 bg-secondary/50">
+        <section className="py-16 bg-secondary/50 backdrop-blur-sm">
           <div className="container px-4 md:px-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <Feature 
@@ -61,7 +62,7 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="py-8 border-t border-border">
+      <footer className="py-8 border-t border-border bg-background/50 backdrop-blur-sm">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
@@ -74,7 +75,7 @@ const Index = () => {
           </div>
         </div>
       </footer>
-    </div>
+    </AuroraBackground>
   );
 };
 
