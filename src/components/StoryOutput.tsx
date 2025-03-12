@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Copy, Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { AnimatedText } from '@/components/ui/animated-text';
 
 interface StoryOutputProps {
   title?: string;
@@ -19,6 +20,7 @@ const StoryOutput: React.FC<StoryOutputProps> = ({
 }) => {
   const [copied, setCopied] = useState(false);
   const storyRef = useRef<HTMLDivElement>(null);
+  const [showContent, setShowContent] = useState(false);
 
   // Reset copied state after 2 seconds
   useEffect(() => {
@@ -27,6 +29,16 @@ const StoryOutput: React.FC<StoryOutputProps> = ({
       return () => clearTimeout(timeout);
     }
   }, [copied]);
+
+  // Show content with slight delay for animation purposes
+  useEffect(() => {
+    if (title && !isLoading) {
+      const timeout = setTimeout(() => setShowContent(true), 300);
+      return () => clearTimeout(timeout);
+    } else {
+      setShowContent(!isLoading);
+    }
+  }, [title, isLoading]);
 
   const handleCopy = async () => {
     if (navigator.clipboard && content) {
@@ -60,7 +72,7 @@ const StoryOutput: React.FC<StoryOutputProps> = ({
 
   return (
     <div className={cn('relative rounded-2xl overflow-hidden glass-panel', className)}>
-      <div className="absolute top-4 right-4 flex space-x-2">
+      <div className="absolute top-4 right-4 flex space-x-2 z-10">
         <button
           onClick={handleCopy}
           className="p-2 rounded-full transition-all duration-200 bg-background/50 hover:bg-background/80 text-foreground"
@@ -85,13 +97,44 @@ const StoryOutput: React.FC<StoryOutputProps> = ({
         )}
       >
         {title && (
-          <h3 className="text-xl md:text-2xl font-medium mb-4">{title}</h3>
+          <h3 className="text-xl md:text-2xl font-medium mb-4">
+            <AnimatedText 
+              text={title}
+              reveal={{ 
+                type: "words",
+                stagger: 0.05,
+                duration: 0.5,
+                startOn: "mount",
+                noRepeat: true
+              }}
+            />
+          </h3>
         )}
         
         <div className="prose prose-slate dark:prose-invert max-w-none">
-          {content.split('\n').map((paragraph, index) => (
-            paragraph ? <p key={index} className="my-3 text-foreground/90">{paragraph}</p> : <br key={index} />
-          ))}
+          {showContent && !isLoading ? (
+            content.split('\n').map((paragraph, index) => (
+              paragraph ? (
+                <p key={index} className="my-3 text-foreground/90">
+                  <AnimatedText 
+                    text={paragraph}
+                    reveal={{ 
+                      type: "words",
+                      stagger: 0.01,
+                      delay: 0.2 + (index * 0.1),
+                      duration: 0.4,
+                      startOn: "mount",
+                      noRepeat: true
+                    }}
+                  />
+                </p>
+              ) : <br key={index} />
+            ))
+          ) : (
+            <p className="text-muted-foreground italic">
+              {isLoading ? "Generating your story..." : "Your story will appear here after generation..."}
+            </p>
+          )}
         </div>
 
         {isLoading && (

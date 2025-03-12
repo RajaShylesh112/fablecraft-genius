@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import { textAnimationKeyframes, textAnimations } from "./src/lib/keyframes";
 
 export default {
   darkMode: ["class"],
@@ -110,6 +111,7 @@ export default {
           from: { filter: 'blur(8px)', opacity: '0' },
           to: { filter: 'blur(0)', opacity: '1' },
         },
+        ...textAnimationKeyframes,
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -122,6 +124,7 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'scale-in': 'scale-in 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
         'blur-in': 'blur-in 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+        ...textAnimations,
       },
       boxShadow: {
         'neo': '5px 5px 15px rgba(0, 0, 0, 0.05), -5px -5px 15px rgba(255, 255, 255, 0.95)',
